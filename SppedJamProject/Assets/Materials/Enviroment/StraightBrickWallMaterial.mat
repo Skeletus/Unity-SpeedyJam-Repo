@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ColumMaterial
+  m_Name: StraightBrickWallMaterial
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -27,7 +27,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 0649a9e140cff684c8aa3a25b55c53c7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 233b6eb2be6a9a24db2b4ee9419fdc4b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -43,15 +43,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 2149097f31958814eba3c80512f3116c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 73a3ab55f1728014bb2e02637f8922db, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: c09badf483bc1064c80baf13ae2a61f7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0dff443e0c3ecf0459d3562ddb3953cf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: fd4ec1fece87bd648a731e5347d2fc3e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8c0b23c8373d82c409df5a38333cddd0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:

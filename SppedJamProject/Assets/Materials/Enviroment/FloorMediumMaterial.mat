@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ColumMaterial
+  m_Name: FloorMediumMaterial
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -27,7 +27,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 0649a9e140cff684c8aa3a25b55c53c7, type: 3}
+        m_Texture: {fileID: 2800000, guid: a3154d44d37963a4c994316d4a94e017, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -43,15 +43,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 2149097f31958814eba3c80512f3116c, type: 3}
+        m_Texture: {fileID: 2800000, guid: fba6752dfd512cd46897f3dc1430b335, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: c09badf483bc1064c80baf13ae2a61f7, type: 3}
+        m_Texture: {fileID: 2800000, guid: fd9d43ffb404ad746a250cced3d328c6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: fd4ec1fece87bd648a731e5347d2fc3e, type: 3}
+        m_Texture: {fileID: 2800000, guid: c8368a64c67f90549aeada16bb5bb87c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
