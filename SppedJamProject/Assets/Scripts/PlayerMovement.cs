@@ -23,11 +23,6 @@ public class PlayerMovement : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        if (horizontalInput  != 0 || verticalInput != 0)
-        {
-            cameraController.AddYawInput(horizontalInput);
-        }
-
         MoveBody(horizontalInput, verticalInput);
 
         RotateBody();

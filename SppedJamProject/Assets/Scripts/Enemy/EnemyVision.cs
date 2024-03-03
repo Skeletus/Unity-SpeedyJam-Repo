@@ -43,7 +43,7 @@ public class EnemyVision : MonoBehaviour
 
                 if (angleToTarget <= visionAngle * 0.5f)
                 {
-                    Debug.Log("player detected");
+                    //Debug.Log("player detected");
                     forgetTimer = forgetTime;
                     enemyMovement.UpdateTarget(collider.transform);
                     //Debug.Log("target: " + target.position);

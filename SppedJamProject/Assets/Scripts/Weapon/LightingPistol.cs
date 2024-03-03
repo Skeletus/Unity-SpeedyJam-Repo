@@ -18,9 +18,10 @@ public class LightingPistol : MonoBehaviour
     [SerializeField] private float aoeAngle = 45f;
     [SerializeField] private float aoeRadius = 5f;
     [SerializeField] private float stunDuration = 2f;
+    [SerializeField] private float damageAmount = 10f;
 
     private float currentEnergy;
-    // Lista para almacenar las ubicaciones de los enemigos detectados
+    // list to save all detected enemy locations 
     private List<Vector3> enemyLocations = new List<Vector3>();
 
     private void Awake()
@@ -36,10 +37,20 @@ public class LightingPistol : MonoBehaviour
 
     private void Update()
     {
-        // Limpiar la lista de ubicaciones antes de cada detección
+        DetectEnemyInAOE();
+
+        RechargeEnergy();
+
+        if (Input.GetButtonDown("Fire1") && currentEnergy >= energyConsumptionRate)
+        {
+            ShootRay();
+        }
+    }
+
+    private void DetectEnemyInAOE()
+    {
         enemyLocations.Clear();
 
-        // Obtener todos los colliders dentro del radio del área de efecto
         Collider[] colliders = Physics.OverlapSphere(transform.position, aoeRadius);
 
         foreach (Collider collider in colliders)
@@ -51,21 +62,11 @@ public class LightingPistol : MonoBehaviour
 
                 if (angleToEnemy <= aoeAngle * 0.5f)
                 {
-                    // Agregar la ubicación del enemigo a la lista
                     enemyLocations.Add(collider.transform.position);
                     //Debug.Log("enemy detected");
-
-                    // Dibujar un raycast hacia el enemigo detectado en el editor
                     Debug.DrawLine(transform.position, collider.transform.position, Color.red);
                 }
             }
-        }
-
-        RechargeEnergy();
-
-        if (Input.GetButtonDown("Fire1") && currentEnergy >= energyConsumptionRate)
-        {
-            ShootRay();
         }
     }
 
@@ -88,6 +89,21 @@ public class LightingPistol : MonoBehaviour
     {
         currentEnergy -= energyConsumptionRate;
 
+        HitAndStunEnemy();
+        //Debug.Log("Rayo disparado!");
+
+
+        if (energyBar != null)
+        {
+            energyBar.SetEnergy(currentEnergy / maxEnergy);
+        }
+
+        // Puedes iniciar una corrutina para reactivar el movimiento después de cierto tiempo
+        StartCoroutine(ReactivateEnemyMovement());
+    }
+
+    private void HitAndStunEnemy()
+    {
         // Detener a todos los enemigos detectados
         foreach (Vector3 enemyLocation in enemyLocations)
         {
@@ -99,23 +115,18 @@ public class LightingPistol : MonoBehaviour
                 {
                     // Detener el movimiento del enemigo (puedes ajustar esto según la lógica de tu enemigo)
                     EnemyMovement enemyMovement = hitCollider.GetComponent<EnemyMovement>();
+                    HealthSystem enemyHealth = hitCollider.GetComponent<HealthSystem>();
                     if (enemyMovement != null)
                     {
                         enemyMovement.SetStunned();
                     }
+                    if (enemyHealth != null)
+                    {
+                        enemyHealth.TakeDamage(damageAmount);
+                    }
                 }
             }
         }
-        Debug.Log("Rayo disparado!");
-
-
-        if (energyBar != null)
-        {
-            energyBar.SetEnergy(currentEnergy / maxEnergy);
-        }
-
-        // Puedes iniciar una corrutina para reactivar el movimiento después de cierto tiempo
-        StartCoroutine(ReactivateEnemyMovement());
     }
 
     // Corrutina para reactivar el movimiento de los enemigos después del tiempo de aturdimiento
