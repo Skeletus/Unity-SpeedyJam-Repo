@@ -7,11 +7,11 @@ public class EnemyVision : MonoBehaviour
 
     [SerializeField] private float visionRange = 10f;
     [SerializeField] private float visionAngle = 45f;
-    [SerializeField] private float speed = 4f;
+
     [SerializeField] private float forgetTime = 2f;
+    [SerializeField] private EnemyMovement enemyMovement;
 
     private float forgetTimer;
-    private Transform target;
 
     private void Awake()
     {
@@ -27,7 +27,7 @@ public class EnemyVision : MonoBehaviour
     {
         UpdateForgetTimer();
         UpdatePlayerPosition();
-        MoveTowardsTarget();
+        //MoveTowardsTarget();
     }
 
     private void UpdatePlayerPosition()
@@ -45,8 +45,8 @@ public class EnemyVision : MonoBehaviour
                 {
                     Debug.Log("player detected");
                     forgetTimer = forgetTime;
-                    target = collider.transform;
-                    Debug.Log("target: " + target.position);
+                    enemyMovement.UpdateTarget(collider.transform);
+                    //Debug.Log("target: " + target.position);
                 }
             }
         }
@@ -58,32 +58,15 @@ public class EnemyVision : MonoBehaviour
         if (forgetTimer <= 0)
         {
             forgetTimer = 0;
-            target = null;
-            Debug.Log("target lost");
+            enemyMovement.SetNullTarget();
+            //Debug.Log("target lost");
         }
-        if ( target != null )
-        {
-            Debug.Log("last seen targe at: " + target.position);
-        }
-        Debug.Log(forgetTimer);
+        //Debug.Log(forgetTimer);
     }
 
     private void MoveTowardsTarget()
     {
-        if ( target!= null)
-        {
-            Vector3 directionToTarget = (target.position - transform.position).normalized;
-
-            transform.Translate(directionToTarget * speed * Time.deltaTime);
-
-            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
-        }
-        else
-        {
-            transform.Translate(Vector3.zero);
-        }
+        //enemyMovement.MoveTowardsTarget();
     }
 
     private void OnDrawGizmos()
@@ -103,11 +86,5 @@ public class EnemyVision : MonoBehaviour
 
         // Dibujar el área de visión en el editor de Unity
         Gizmos.DrawWireSphere(transform.position, visionRange);
-
-        if (target != null )
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawRay(transform.position, target.position);
-        }
     }
 }
