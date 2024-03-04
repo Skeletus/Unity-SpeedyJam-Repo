@@ -27,7 +27,6 @@ public class EnemyVision : MonoBehaviour
     {
         UpdateForgetTimer();
         UpdatePlayerPosition();
-        //MoveTowardsTarget();
     }
 
     private void UpdatePlayerPosition()
@@ -64,16 +63,10 @@ public class EnemyVision : MonoBehaviour
         //Debug.Log(forgetTimer);
     }
 
-    private void MoveTowardsTarget()
-    {
-        //enemyMovement.MoveTowardsTarget();
-    }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
 
-        // Dibujar el ángulo de visión en el editor de Unity
         float halfFOV = visionAngle * 0.5f;
         Quaternion leftRayRotation = Quaternion.Euler(0f, -halfFOV, 0f);
         Quaternion rightRayRotation = Quaternion.Euler(0f, halfFOV, 0f);
@@ -84,7 +77,6 @@ public class EnemyVision : MonoBehaviour
         Gizmos.DrawRay(transform.position, leftRayDirection * visionRange);
         Gizmos.DrawRay(transform.position, rightRayDirection * visionRange);
 
-        // Dibujar el área de visión en el editor de Unity
         Gizmos.DrawWireSphere(transform.position, visionRange);
     }
 }

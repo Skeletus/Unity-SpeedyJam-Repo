@@ -17,7 +17,6 @@ public class TimeRecords : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            // Obtener todos los tiempos de juego guardados
             savedTimes = new List<float>();
         }
         else
@@ -30,7 +29,6 @@ public class TimeRecords : MonoBehaviour
     private void Start()
     {
         leaderBoard.SetActive(false);
-        //DisplayTimeRecords();
     }
 
     public void DisplayTimeRecords()
@@ -44,10 +42,10 @@ public class TimeRecords : MonoBehaviour
             savedTimes.Add(savedTime);
         }
 
-        // Ordenar los tiempos de menor a mayor
+        // sort minor to mayor
         savedTimes.Sort();
 
-        // Mostrar los tiempos ordenados
+        // show sorted time record
         recordsText.text = "Time Records:\n";
 
         for (int i = 0; i < savedTimes.Count; i++)

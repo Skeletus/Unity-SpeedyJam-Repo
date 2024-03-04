@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class LightingPistol : MonoBehaviour
 {
@@ -90,7 +89,7 @@ public class LightingPistol : MonoBehaviour
         currentEnergy -= energyConsumptionRate;
 
         HitAndStunEnemy();
-        //Debug.Log("Rayo disparado!");
+        //Debug.Log("pium pium!");
 
 
         if (energyBar != null)
@@ -98,13 +97,13 @@ public class LightingPistol : MonoBehaviour
             energyBar.SetEnergy(currentEnergy / maxEnergy);
         }
 
-        // Puedes iniciar una corrutina para reactivar el movimiento después de cierto tiempo
+        // routine to reactive enemy movement
         StartCoroutine(ReactivateEnemyMovement());
     }
 
     private void HitAndStunEnemy()
     {
-        // Detener a todos los enemigos detectados
+        // stun all enemies detected
         foreach (Vector3 enemyLocation in enemyLocations)
         {
             Collider[] hitColliders = Physics.OverlapSphere(enemyLocation, 0.5f); // Ajusta el radio según tus necesidades
@@ -113,7 +112,7 @@ public class LightingPistol : MonoBehaviour
             {
                 if (hitCollider.CompareTag("Enemy"))
                 {
-                    // Detener el movimiento del enemigo (puedes ajustar esto según la lógica de tu enemigo)
+                    // stop all detecte enemies movement and do damage
                     EnemyMovement enemyMovement = hitCollider.GetComponent<EnemyMovement>();
                     HealthSystem enemyHealth = hitCollider.GetComponent<HealthSystem>();
                     if (enemyMovement != null)
@@ -129,7 +128,7 @@ public class LightingPistol : MonoBehaviour
         }
     }
 
-    // Corrutina para reactivar el movimiento de los enemigos después del tiempo de aturdimiento
+    // routine to reactivate enemy movent after x second of stun duration
     private IEnumerator ReactivateEnemyMovement()
     {
         yield return new WaitForSeconds(stunDuration);
@@ -137,13 +136,12 @@ public class LightingPistol : MonoBehaviour
         // Reactivar el movimiento de todos los enemigos
         foreach (Vector3 enemyLocation in enemyLocations)
         {
-            Collider[] hitColliders = Physics.OverlapSphere(enemyLocation, 0.5f); // Ajusta el radio según tus necesidades
+            Collider[] hitColliders = Physics.OverlapSphere(enemyLocation, 0.5f);
 
             foreach (Collider hitCollider in hitColliders)
             {
                 if (hitCollider.CompareTag("Enemy"))
                 {
-                    // Reactivar el movimiento del enemigo (puedes ajustar esto según la lógica de tu enemigo)
                     EnemyMovement enemyMovement = hitCollider.GetComponent<EnemyMovement>();
                     if (enemyMovement != null)
                     {

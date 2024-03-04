@@ -49,12 +49,12 @@ public class Timer : MonoBehaviour
 
     public void SaveGameTime(float gameTimeElapsed)
     {
-        // Obtener el número actual de registros y aumentarlo en 1
+        // get actual number of records and add +1
         int currentRecordCount = PlayerPrefs.GetInt("GameplayTimeCount", 0);
         currentRecordCount++;
 
         Debug.Log("currentRecordCount: " + currentRecordCount);
-        // Guardar el nuevo número de registros y el tiempo de juego transcurrido
+        // save new record and time elapsed
         PlayerPrefs.SetInt("GameplayTimeCount", currentRecordCount);
         PlayerPrefs.SetFloat("GameplayTime_" + currentRecordCount, gameTimeElapsed);
         PlayerPrefs.Save();
