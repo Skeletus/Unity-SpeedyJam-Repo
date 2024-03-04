@@ -133,7 +133,7 @@ public class LightingPistol : MonoBehaviour
     {
         yield return new WaitForSeconds(stunDuration);
 
-        // Reactivar el movimiento de todos los enemigos
+        // reactive all enemies movement
         foreach (Vector3 enemyLocation in enemyLocations)
         {
             Collider[] hitColliders = Physics.OverlapSphere(enemyLocation, 0.5f);
@@ -155,32 +155,26 @@ public class LightingPistol : MonoBehaviour
 
     private void DrawAOE()
     {
-        // Calcula la dirección del frente de la pistola en el plano horizontal
         Vector3 pistolForward = transform.forward;
-        pistolForward.y = 0f; // Ignora la componente vertical
+        pistolForward.y = 0f; 
 
-        // Calcula la mitad del ángulo del cono
         float halfAngle = aoeAngle * 0.5f;
 
-        // Calcula la dirección izquierda del cono
         Quaternion leftRayRotation = Quaternion.AngleAxis(-halfAngle, Vector3.up);
         Vector3 leftRayDirection = leftRayRotation * pistolForward;
 
-        // Calcula la dirección derecha del cono
         Quaternion rightRayRotation = Quaternion.AngleAxis(halfAngle, Vector3.up);
         Vector3 rightRayDirection = rightRayRotation * pistolForward;
 
-        // Dibuja el cono usando líneas en el editor
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + leftRayDirection * aoeRadius);
         Gizmos.DrawLine(transform.position, transform.position + rightRayDirection * aoeRadius);
 
-        // Dibuja el arco del cono
-        Gizmos.color = new Color(1f, 0f, 0f, 0.3f); // Rojo con transparencia
+        Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
         Gizmos.DrawRay(transform.position, leftRayDirection * aoeRadius);
         Gizmos.DrawRay(transform.position, rightRayDirection * aoeRadius);
-        Gizmos.DrawSphere(transform.position, 0.1f); // Punto central del cono
-        Gizmos.DrawWireSphere(transform.position, aoeRadius); // Límite del cono
+        Gizmos.DrawSphere(transform.position, 0.1f);
+        Gizmos.DrawWireSphere(transform.position, aoeRadius);
     }
 
     private void OnDrawGizmos()
