@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class ElectricityController : MonoBehaviour
     public Slider Slider;
     public SphereCollider SphereCollider;
     public List<GameObject> EnemiesInRange = new List<GameObject>();
+    public AudioSource WarningAudio;
+    public HealthSystem PlayerHealth;
 
     public int ZapGauge;
     public int DeathGauge;
@@ -35,7 +38,7 @@ public class ElectricityController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -52,11 +55,21 @@ public class ElectricityController : MonoBehaviour
                 //put code for damage
                 lightningOffTimeAbs = Time.time + lightningOffTimeRel; 
                 currentGauge = 0;
+                EnemiesInRange.ForEach(e => e.GetComponent<HealthSystem>().TakeDamage(10));
+            }
+            if (currentGauge <= DeathGauge && !WarningAudio.isPlaying)
+            {
+                WarningAudio.Play();
             }
         }
+        else
+        {
+            WarningAudio.Stop();
+        }
+        
         if (currentGauge >= DeathGauge)
         {
-            Debug.Log("Game Over");
+            PlayerHealth.TakeDamage(1000);
         }
         Slider.value = currentGauge;
         StrikeLightening();
@@ -64,7 +77,7 @@ public class ElectricityController : MonoBehaviour
 
     public void StrikeLightening()
     {
-        for(int i = 0; i < EnemiesInRange.Count; i++)
+        for(int i = 0; i < ElectricityRenderers.Count; i++)
         {
             if (Time.time < lightningOffTimeAbs)
             {
@@ -72,7 +85,7 @@ public class ElectricityController : MonoBehaviour
                 if (Time.time > nextActionTime)
                 {
                     nextActionTime += period;
-                    Vector3 targetPosition = EnemiesInRange[i].transform.position;
+                    Vector3 targetPosition = EnemiesInRange[i].GetComponent<BoxCollider>().transform.position;
                     Vector3 startPosition = transform.position;
                     float distance = Vector3.Distance(targetPosition, startPosition);
                     float sectionDistance = 1f;
@@ -112,7 +125,13 @@ public class ElectricityController : MonoBehaviour
     }
     public void RemoveEnemyInRage(GameObject enemy)
     {
-        ElectricityRenderers.RemoveAt(0);
+        Invoke("DestroyEnemy", 1);
         EnemiesInRange.Remove(enemy);
+    }
+    public void DestroyEnemy()
+    {
+        var renderer = ElectricityRenderers[0];
+        Destroy(renderer);
+        ElectricityRenderers.RemoveAt(0);
     }
 }
